@@ -46,4 +46,5 @@
 
 ## 1.4
 
--- added list-profiles (by jake)
+- added list-profiles (by jake)
+- added missing static vs dynamic linking for C/C++ on windows for GCC, G++, Clang, Clang++ and Zig compilers

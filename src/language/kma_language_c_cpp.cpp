@@ -622,9 +622,12 @@ void Compile_Final(const GlobalData& globalData)
 
 			vector<string> finalFlags = globalData.targetProfile.compileFlags;
 
+#ifdef _WIN32
+			string runtimeFlag{};
+
 			if (isMSVC)
 			{
-				string runtimeFlag = ContainsValue(
+				runtimeFlag = ContainsValue(
 					globalData.targetProfile.customFlags, 
 					CustomFlag::F_MSVC_STATIC_RUNTIME) ? "MT" : "MD";
 				
@@ -632,6 +635,15 @@ void Compile_Final(const GlobalData& globalData)
 					? runtimeFlag + "d"
 					: runtimeFlag);
 			}
+			else
+			{
+				runtimeFlag = ContainsValue(
+					globalData.targetProfile.customFlags, 
+					CustomFlag::F_MSVC_STATIC_RUNTIME) ? "fms-runtime-lib=static" : "fms-runtime-lib=dll";
+
+				finalFlags.push_back(runtimeFlag);
+			}
+#endif
 
 			//always enable exceptions for msvc
 			if (isMSVC) finalFlags.push_back("EHsc");
