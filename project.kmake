@@ -14,6 +14,7 @@ links_win: msvcrt, msvcprt, ucrt, vcruntime, shell32, user32
 
 #global
 compilerlauncher: ccache
+compiler: clang++
 standard: c++20
 binarytype: executable
 binaryname: ${name_bin}
@@ -24,19 +25,16 @@ warninglevel: normal
 customflags: export-compile-commands, export-vscode-sln
 
 #profile debug-windows
-compiler: clang++
 buildtype: debug
 buildpath: "${dir_debug}windows"
 links: "${dir_kc_deb}/${name_kc}d.lib", ${links_win}
 
 #profile release-windows
-compiler: clang++
 buildtype: minsizerel
 buildpath: "${dir_release}windows"
 links: "${dir_kc_rel}/${name_kc}.lib", ${links_win}
 
 #profile debug-linux
-compiler: clang++
 buildtype: debug
 buildpath: "${dir_debug}linux"
 links: "${dir_kc_deb}/lib${name_kc}d.a"
@@ -44,7 +42,6 @@ links: "${dir_kc_deb}/lib${name_kc}d.a"
 postbuildaction: ${comm_objcopy} ${dir_debug}linux/${name_bin}
 
 #profile release-linux
-compiler: clang++
 buildtype: minsizerel
 buildpath: "${dir_release}linux"
 links: "${dir_kc_rel}/lib${name_kc}.a"
