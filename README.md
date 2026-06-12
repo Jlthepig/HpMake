@@ -17,14 +17,6 @@ This project relies on several [external dependencies](https://github.com/greeen
 - Python (Requires PyInstaller)
 - Rust (2015 to 2024)
 
-## Upcoming languages
-
-- C#
-- Go
-- Assembly
-- Odin
-- Nim
-
 Currently only Windows (x86_64) and Linux (x86_64) are supported. There are no plans to support BSD, mobile, console, ARM, x86 or macOS.
 
 ## Links
