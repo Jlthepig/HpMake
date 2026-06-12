@@ -14,7 +14,7 @@ links_win: msvcrt, msvcprt, ucrt, vcruntime, shell32, user32
 
 #global
 compilerlauncher: ccache
-compiler: clang++
+compiler: cl
 standard: c++20
 binarytype: executable
 binaryname: ${name_bin}
@@ -23,6 +23,7 @@ headers: "include", "../external-shared/KalaHeaders", "../external-shared/KalaCL
 defines: LIB_STATIC
 warninglevel: normal
 customflags: export-compile-commands, export-vscode-sln
+//compileflags: MD
 
 #profile debug-windows
 buildtype: debug
