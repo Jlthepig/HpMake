@@ -49,3 +49,4 @@
 - added new command list-profiles: lists all available profiles in a .kmake file (by jake)
 - added new command validate: checks if a .kmake file is valid without compiling (by jake)
 - added missing static vs dynamic linking for C/C++ on windows for GCC, G++, Clang, Clang++ and Zig compilers
+- added unity building
