@@ -1,10 +1,10 @@
-# CthulhuMake (KalaMake)
+# HpMake (KalaMake)
 
 This project is a fork of KalaMake. It adds extra features that diverge from the original project's philosophy.
 
-CthulhuMake (KalaMake) is a multithreaded CLI for building libraries and executables with `.kmake` files and it is intended to use as a replacement for other build scripts and generators like Make, Premake, CMake or Ninja. CthulhuMake automatically uses all available threads from your CPU to always help speed up compilation, or you can fill the jobs field with your desired job count, multithreading is not supported by all languages.
+HpMake (KalaMake) is a multithreaded CLI for building libraries and executables with `.kmake` files and it is intended to use as a replacement for other build scripts and generators like Make, Premake, CMake or Ninja. HpMake automatically uses all available threads from your CPU to always help speed up compilation, or you can fill the jobs field with your desired job count, multithreading is not supported by all languages.
 
-CthulhuMake currently accepts several commands, most of which come from [KalaCLI](https://github.com/kalakit/kalacli) which is statically linked to CthulhuMake (KalaMake). Type `--help` to list all available commands and type `--info commandnamehere` to list info about that command.
+HpMake currently accepts several commands, most of which come from [KalaCLI](https://github.com/kalakit/kalacli) which is statically linked to HpMake (KalaMake). Type `--help` to list all available commands and type `--info commandnamehere` to list info about that command.
 
 This project relies on several [external dependencies](https://github.com/greeenlaser/external-shared), they are not shipped inside this project, please make sure you have that repository cloned into a folder inside the same parent directory as this project folder before compiling this project from source.
 
@@ -16,14 +16,6 @@ This project relies on several [external dependencies](https://github.com/greeen
 - Zig (the language)
 - Python (Requires PyInstaller)
 - Rust (2015 to 2024)
-
-## Upcoming languages
-
-- C#
-- Go
-- Assembly
-- Odin
-- Nim
 
 Currently only Windows (x86_64) and Linux (x86_64) are supported. There are no plans to support BSD, mobile, console, ARM, x86 or macOS.
 
