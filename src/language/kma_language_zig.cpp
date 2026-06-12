@@ -157,6 +157,12 @@ void PreCheck(GlobalData& globalData)
 			"LANGUAGE_ZIG",
 			"Field 'jobs' is not supported in Zig!");
     }
+	if (globalData.targetProfile.unityBatch != 0)
+	{
+		KalaMakeCore::CloseOnError(
+			"LANGUAGE_[JAVA/PYTHON/RUST/ZIG]",
+			"Field 'unitybatch' is not supported in [Java/Python/Rust/Zig]!");
+	}
 
 	if (ContainsValue(
 		globalData.targetProfile.customFlags, 

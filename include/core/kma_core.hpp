@@ -123,7 +123,11 @@ namespace KalaMake::Core
 
 		//post-build action field, can add as many as you want,
 		//supported by all languages
-		T_POST_BUILD_ACTION = 19u
+		T_POST_BUILD_ACTION = 19u,
+
+		//how many source files are grouped into a single unity build translation unit,
+		//only for C and C++
+		T_UNITY_BATCH = 20u,
 	};
 
 	//Allowed binary types that can be added to the binarytype field
@@ -353,7 +357,9 @@ namespace KalaMake::Core
 		//pyinstaller bundles everything into a single exe, all files are extracted at each run,
 		//otherwise it creates a dir with all content with faster startup.
 		//only for Python
-		F_PYTHON_ONE_FILE = 8u
+		F_PYTHON_ONE_FILE = 8u,
+
+		F_UNITY_BUILD = 9u
 	};
 	
 	struct ProfileData
@@ -379,6 +385,8 @@ namespace KalaMake::Core
 		//how many parallel compilation jobs are allowed,
 		//only for C and C++
 		u16 jobs{};
+
+		u16 unityBatch{};
 
 		//what is the target type of the binary,
 		//supported by all languages

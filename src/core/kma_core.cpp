@@ -100,6 +100,7 @@ constexpr string_view field_compiler          = "compiler";
 constexpr string_view field_standard          = "standard";
 constexpr string_view field_target_type       = "targettype";
 constexpr string_view field_jobs              = "jobs";
+constexpr string_view field_unity_batch       = "unitybatch";
 constexpr string_view field_binary_name       = "binaryname";
 constexpr string_view field_build_type        = "buildtype";
 constexpr string_view field_build_path        = "buildpath";
@@ -192,6 +193,7 @@ constexpr string_view custom_package_jar         = "package-jar";
 constexpr string_view custom_java_win_console    = "java-win-console";
 constexpr string_view custom_export_java_sln     = "export-java-sln";
 constexpr string_view custom_python_one_file     = "python-one-file";
+constexpr string_view custom_unity_build         = "unity-build";
 
 //kma path is the root directory where the kmake file is stored at
 static path kmaPath{};
@@ -395,6 +397,7 @@ namespace KalaMake::Core
 		{ FieldType::T_STANDARD,          field_standard },
 		{ FieldType::T_TARGET_TYPE,       field_target_type },
 		{ FieldType::T_JOBS,              field_jobs },
+		{ FieldType::T_UNITY_BATCH,       field_unity_batch },
 
 		{ FieldType::T_BINARY_NAME,    field_binary_name },
 		{ FieldType::T_BUILD_TYPE,     field_build_type },
@@ -521,7 +524,8 @@ namespace KalaMake::Core
 		{ CustomFlag::F_PACKAGE_JAR,             custom_package_jar },
 		{ CustomFlag::F_JAVA_WIN_CONSOLE,        custom_java_win_console },
 		{ CustomFlag::F_EXPORT_JAVA_SLN,         custom_export_java_sln },
-		{ CustomFlag::F_PYTHON_ONE_FILE,         custom_python_one_file }
+		{ CustomFlag::F_PYTHON_ONE_FILE,         custom_python_one_file },
+		{ CustomFlag::F_UNITY_BUILD,             custom_unity_build }
 	};
 
 	void KalaMakeCore::OpenFile(
@@ -1603,6 +1607,38 @@ void ExtractFieldData(
 			}
 		}
 
+		if (name == field_unity_batch
+			&& !cleanValue.empty())
+		{
+			unsigned long parsed{};
+
+			try
+			{
+				parsed = scast<int>(stoul(cleanValue));
+			}
+			catch (...)
+			{
+				KalaMakeCore::CloseOnError(
+					"KALAMAKE",
+					"Unity batch size must contain a valid unsigned integer!");
+			}
+			
+			int batch = scast<int>(parsed);
+
+			if (batch <= 0)
+			{
+				KalaMakeCore::CloseOnError(
+					"KALAMAKE",
+					"Unity batch size must be 1 or greater!");
+			}
+			if (batch > UINT16_MAX)
+			{
+				KalaMakeCore::CloseOnError(
+					"KALAMAKE",
+					"Unity batch size must be less than 65536!");
+			}
+		}
+
 		if (name == field_binary_type)
 		{
 			const auto& binaryTypes = KalaMakeCore::GetBinaryTypes();
@@ -2131,7 +2167,11 @@ void FirstParse(const vector<string>& lines)
 					const vector<string>& values = fields[string(field_jobs)];
 					globalData.targetProfile.jobs = scast<u16>(stoul(values[0]));
 				}
-
+				if (fields.contains(string(field_unity_batch)))
+				{
+					const vector<string>& values = fields[string(field_unity_batch)];
+					globalData.targetProfile.unityBatch = scast<u16>(stoul(values[0]));
+				}
 				if (fields.contains(string(field_binary_name)))
 				{
 					globalData.targetProfile.binaryName = fields[string(field_binary_name)][0];
@@ -2329,7 +2369,11 @@ void FirstParse(const vector<string>& lines)
 					const vector<string>& values = fields[string(field_jobs)];
 					globalData.targetProfile.jobs = scast<u16>(stoul(values[0]));
 				}
-
+				if (fields.contains(string(field_unity_batch)))
+				{
+					const vector<string>& values = fields[string(field_unity_batch)];
+					globalData.targetProfile.unityBatch = scast<u16>(stoul(values[0]));
+				}
 				if (fields.contains(string(field_binary_name)))
 				{
 					globalData.targetProfile.binaryName = fields[string(field_binary_name)][0];
